@@ -67,6 +67,33 @@ class PairingHeap:
         self.count -= 1
         return result
 
+    # DECREASE KEY
+    def decrease_key(self, node: Any, new_key: float) -> None:
+        """
+        Decrease the key (priority) of an existing node.
+        If new_key >= current, no change.
+        """
+        x = self.nodes.get(node)
+        if x is None:
+            raise KeyError(f"Node {node!r} not found.")
+        if new_key >= x.key:
+            return
+
+        x.key = new_key
+        if x is not self.root:
+            # Cut x and merge into root list
+            if x.next_sibling:
+                x.next_sibling.prev = x.prev
+            if x.prev:
+                if x.prev.left_child == x:
+                    x.prev.left_child = x.next_sibling
+                else:
+                    x.prev.next_sibling = x.next_sibling
+
+            x.prev = None
+            x.next_sibling = None
+            self.root = self._compare_and_link(self.root, x)
+
     # IS EMPTY
     def is_empty(self) -> bool:
         return self.root is None

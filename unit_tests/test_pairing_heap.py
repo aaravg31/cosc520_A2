@@ -28,6 +28,20 @@ class TestPairingHeap(unittest.TestCase):
         self.assertIn(node, ['A', 'C'])
         self.assertTrue(key in [5, 10])
 
+    def test_decrease_key(self):
+        ph = PairingHeap()
+        ph.insert('A', 10)
+        ph.insert('B', 5)
+        ph.decrease_key('A', 1)
+        node, key = ph.extract_min()
+        self.assertEqual((node, key), ('A', 1))
+
+    def test_decrease_key_missing(self):
+        ph = PairingHeap()
+        ph.insert('A', 10)
+        with self.assertRaises(KeyError):
+            ph.decrease_key('Z', 1)
+
     def test_is_empty_and_len(self):
         ph = PairingHeap()
         self.assertTrue(ph.is_empty())
