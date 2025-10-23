@@ -5,6 +5,7 @@ Implements:
 - insert(node, priority)
 - extract_min() -> (node, priority) or (None, None) if empty
 - find_min() -> (node, priority) or (None, None) if empty
+- decrease_key(node, new_priority)
 - is_empty() -> bool
 - __len__() -> number of items
 

@@ -1,11 +1,7 @@
-"""
-Simple random weighted graph generator for benchmarking Dijkstra’s algorithm.
-Generates a directed graph represented as an adjacency list (dictionary).
-"""
-
 import random
+from tqdm import tqdm
 
-def generate_graph(num_nodes, num_edges, weight_range=(1, 10), seed=None):
+def generate_graph(num_nodes, num_edges, weight_range=(1, 10), seed=None, show_progress=True):
     """
     Generate a random directed graph.
 
@@ -19,6 +15,8 @@ def generate_graph(num_nodes, num_edges, weight_range=(1, 10), seed=None):
         Minimum and maximum weight for edges
     seed : int, optional
         Random seed for reproducibility
+    show_progress : bool, optional
+        Whether to display tqdm progress bar (default: True)
 
     Returns
     -------
@@ -28,11 +26,13 @@ def generate_graph(num_nodes, num_edges, weight_range=(1, 10), seed=None):
     if seed is not None:
         random.seed(seed)
 
-    # Initialize adjacency list
     graph = {i: [] for i in range(num_nodes)}
 
-    # Randomly connect nodes
-    for _ in range(num_edges):
+    iterator = range(num_edges)
+    if show_progress:
+        iterator = tqdm(iterator, total=num_edges, desc=f"Generating graph ({num_nodes} nodes)", ncols=80, leave=False)
+
+    for _ in iterator:
         u = random.randint(0, num_nodes - 1)
         v = random.randint(0, num_nodes - 1)
         if u == v:
