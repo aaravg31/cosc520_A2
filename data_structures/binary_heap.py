@@ -1,8 +1,7 @@
 """
-Binary Min Heap (from scratch)
+Binary Min Heap
 
-API
----
+Implements:
 - insert(node, priority)
 - extract_min() -> (node, priority) or (None, None) if empty
 - decrease_key(node, new_priority)
@@ -26,6 +25,7 @@ class BinaryHeap:
         # Position map: node -> index in _heap
         self._pos: Dict[Any, int] = {}
 
+    # INSERT
     def insert(self, node: Any, priority: float) -> None:
         """Insert a new (node, priority). Node must not already be present."""
         if node in self._pos:
@@ -35,6 +35,7 @@ class BinaryHeap:
         self._pos[node] = idx
         self._sift_up(idx)
 
+    # EXTRACT MIN
     def extract_min(self) -> Tuple[Optional[Any], Optional[float]]:
         """Remove and return the (node, priority) with smallest priority."""
         if not self._heap:
@@ -50,6 +51,7 @@ class BinaryHeap:
 
         return node, priority
 
+    # DECREASE KEY
     def decrease_key(self, node: Any, new_priority: float) -> None:
         """
         Decrease the priority of an existing node.
@@ -67,14 +69,15 @@ class BinaryHeap:
         self._heap[idx] = (cur_node, new_priority)
         self._sift_up(idx)
 
+    # IS EMPTY
     def is_empty(self) -> bool:
         return len(self._heap) == 0
 
+    # LEN
     def __len__(self) -> int:
         return len(self._heap)
 
-    # ---------- Internal utilities ----------
-
+    # INTERNAL UTILITIES
     def _parent(self, i: int) -> int:
         return (i - 1) // 2
 
