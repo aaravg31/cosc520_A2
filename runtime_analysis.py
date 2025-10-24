@@ -27,11 +27,16 @@ def benchmark_dijkstra():
     heap_types = ["binary", "pairing", "fibonacci"]
 
     # Graph sizes: (num_nodes, avg_edges_per_node)
+    
+    # For peer review testing:
+    # Use smaller graphs first if runtime or memory is limited (uncomment and comment sizes accordingly):
     graph_sizes = [
-        (10_000, 8),
-        (50_000, 10),
+        #(10_000, 8),
+        #(50_000, 10),
         (100_000, 12),
         (500_000, 15),
+        (1_000_000, 20),
+        (2_000_000, 25),
     ]
 
     results = {heap: [] for heap in heap_types}
@@ -80,7 +85,7 @@ def plot_results(graph_sizes, results):
     plt.legend()
     plt.grid(True, linestyle='--', alpha=0.6)
     plt.tight_layout()
-    plt.savefig("runtime_comparison.png", dpi=300)
+    plt.savefig("plots/runtime_comparison.png", dpi=300)
     plt.show()
 
 
